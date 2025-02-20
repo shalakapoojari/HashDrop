@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="w-64 bg-gray-800 min-h-screen fixed">
+        <div class="p-6">
+            <h2 class="text-white text-2xl font-semibold">User Panel</h2>
+        </div>
+        <nav class="mt-6">
+            <div class="px-4 space-y-2">
+                    <a href="{{ url_for('user.user_dashboard') }}" 
+                   class="block px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors">
+                    Upload Data
+                </a>
+                <a href="{{ url_for('user.stored_files') }}" 
+                   class="block px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors">
+                    My Files
+                </a>
+                <a href="{{ url_for('user.access_file_page') }}" 
+                   class="block px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors">
+                    Access Files
+                </a>
+                
+                <a href="{{ url_for('auth.logout') }}" 
+                   class="block px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors">
+                    Logout
+                </a>
+            </div>
+        </nav>
+    </div>
+    <div class="bg-white p-6 rounded shadow-md">
+        <h1 class="text-xl font-bold mb-4">Settings</h1>
+        <p>Here you can manage your permissions and account preferences.</p>
+    </div>
+</body>
+</html>

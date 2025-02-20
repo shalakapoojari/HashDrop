@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HashDrop - Secure File Hashing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
+    <!-- Remove duplicate script tag for CSS file -->
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@latest/build/spline-viewer.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Add Spline background -->
+       
+<spline-viewer url="https://prod.spline.design/VpVWoO6JvK98jiHM/scene.splinecode"></spline-viewer>
+        
+        <div class="gradient-overlay"></div>
+        
+        <nav class="navbar">
+            <div class="navbar-content">
+                <div class="logo">
+                    <i class="icon-lock"></i>
+                    <span>HashDrop</span>
+                </div>
+                <div class="nav-links">
+
+                    <a href="{{ url_for('auth.login') }}" class="basic-button">User Login✦₊⁺</a>
+                <a href="{{ url_for('auth.register') }}" class="basic-button">Register as Admin</a>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <div class="hero">
+                <div class="hero-badge">
+                    <i class="icon-lock"></i>
+                    <span>Applications for secure hashing are open ✎</span>
+                </div>
+                <h1>
+                    Take a leap of
+                    <br>
+                    <span>Secure</span> Hashing
+                </h1>
+                <p>Join us for enterprise-grade document security and verification</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="icon-shield"></i>
+                    <h3>User Roles</h3>
+                    <p>Role-based access for users & admins.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="icon-file"></i>
+                    <h3>Access Control</h3>
+                    <p>Admins manage users, logs, and security.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="icon-lock"></i>
+                    <h3>Real-Time Protection</h3>
+                    <p>Continuous monitoring & tamper detection.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="icon-shield"></i>
+                    <h3>Cryptographic Security</h3>
+                    <p>Secure hashing (SHA-256, bcrypt) & AES encryption.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>HashDrop © 2024. Secure file hashing made simple.</p>
+        </footer>
+    </div>
+
+    <!-- Move script to end of body -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</body>
+</html>

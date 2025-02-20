@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Stored Files</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_stored_files.css') }}">
+</head>
+</head>
+<body>
+    <!-- Side Panel -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div>
+                <h2 id="userNameDisplay">Admin Name</h2>
+                <span id="userRoleDisplay" class="text-sm text-gray-300">Admin Role</span>
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="{{ url_for('admin.admin_dashboard')}}" class="active">File Permissions</a></li>
+            <li><a href="{{ url_for('admin.my_stored_files')}}">My Files</a></li>
+            <li><a href="{{ url_for('admin.user_stored_files')}}">User Files</a></li>
+            <li><a href="{{ url_for('admin.upload_file')}}">Upload Files</a></li>
+            <li><a href="{{ url_for('admin.organization_members')}}">Manage Organization</a></li>
+            <li><a href="{{ url_for('admin.activity_log')}}">Activities</a></li>
+            <li><a href="{{ url_for('admin.create_user')}}">Create User</a></li>
+            <li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>My Stored Files</h1>
+
+        <!-- File Table -->
+        {% if files|length > 0 %}
+        <table>
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>Uploaded At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in files %}
+                <tr>
+                    <td>{{ file.filename }}</td>
+                    <td>{{ file.uploaded_at }}</td>
+                    <td>
+                        <form action="{{ url_for('admin.download_file', file_id=file._id) }}" method="POST">
+                            <button type="submit" class="btn btn-success">Download</button>
+                        </form>
+                        <form action="{{ url_for('admin.delete_file', file_id=file._id) }}" method="POST">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No files found.</p>
+        {% endif %}
+    </div>
+    <script>
+        function loadUserInfo() {
+        fetch('/admin/user_info')  // Create this backend route
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user info');
+                }
+                return response.json();
+            })
+            .then(user => {
+                document.getElementById('userNameDisplay').innerHTML = user.name;
+                document.getElementById('userRoleDisplay').innerHTML = user.role;
+            })
+            .catch(error => {
+                console.error('Error fetching user info:', error);
+            });
+    }
+
+ 
+    loadUserInfo();
+    </script>
+</body>
+</html>

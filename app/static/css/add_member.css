@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+:root {
+    --purple-accent: #A855F7;
+    --text-light: #ffffff;
+    --text-muted: #CBD5E1;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+    color: var(--text-light);
+    background: linear-gradient(45deg, #000000, rgb(41, 30, 139), black, #6B21A8, black, rgb(175, 20, 46), black);
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
+    display: flex;
+    min-height: 100vh;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Corrected sidebar structure to match original */
+.sidebar-header {
+    width: 250px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header div {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.sidebar-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--purple-accent);
+}
+
+.sidebar-header h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.text-gray-300 {
+    color: var(--text-muted);
+}
+
+.sidebar-menu {
+    list-style: none;
+    margin-top: 2rem;
+    text-align: left;  /* Changed to left alignment */
+}
+
+.sidebar-menu li {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-menu a {
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    display: block;
+    transition: all 0.3s ease;
+    text-align: left;  /* Changed to left alignment */
+}
+
+.sidebar-menu a:hover {
+    color: var(--purple-accent);
+    background: rgba(168, 85, 247, 0.1);
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.form-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-card h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--text-light);
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--purple-accent);
+}
+
+.form-group small {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+.form-footer {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    border: none;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background: var(--purple-accent);
+    color: var(--text-light);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    text-decoration: none;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.btn-primary:hover {
+    background: #9333EA;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.alert-success {
+    background: rgba(74, 222, 128, 0.2);
+    color: #4ADE80;
+    border: 1px solid #4ADE80;
+}
+
+.alert-danger {
+    background: rgba(248, 113, 113, 0.2);
+    color: #F87171;
+    border: 1px solid #F87171;
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+    
+    .sidebar-header {
+        width: 100%;
+    }
+    
+    .form-card {
+        margin: 1rem;
+    }
+    
+    .form-footer {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}

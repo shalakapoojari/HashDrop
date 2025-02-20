@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+:root {
+    --purple-accent: #A855F7;
+    --text-light: #ffffff;
+    --text-muted: #CBD5E1;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text-light);
+    background: linear-gradient(45deg, #000000, rgb(41, 30, 139), black, #6B21A8, black, rgb(175, 20, 46), black);
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
+}
+.main-content {
+    flex-grow: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Layout */
+body > div:first-child {
+    width: 250px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    position: fixed;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main Content Container */
+body > div:nth-child(2) {
+    margin-left: 250px;
+    padding: 2rem;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Sidebar Header */
+body > div:first-child h2 {
+    color: var(--text-light);
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Navigation Links */
+nav div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+nav a:hover {
+    color: var(--purple-accent);
+    background: rgba(168, 85, 247, 0.1);
+}
+
+/* Main Content Card */
+body > div:nth-child(2) > div {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Page Title */
+h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--text-light);
+    text-align: center;
+    font-weight: 700;
+}
+
+/* Flash Messages */
+.flash-message {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    background: rgba(168, 85, 247, 0.1);
+    border-left: 4px solid var(--purple-accent);
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Form Labels */
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+/* File Input */
+input[type="file"] {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    color: var(--text-light);
+    width: 100%;
+    cursor: pointer;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    background: rgba(168, 85, 247, 0.3);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    color: var(--text-light);
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+/* Submit Button */
+button {
+    background: rgba(168, 85, 247, 0.3);
+    color: var(--text-light);
+    border: 2px solid rgba(168, 85, 247, 0.5);
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: rgba(168, 85, 247, 0.4);
+}
+
+/* Flash Messages */
+body > div:nth-child(2) > div > div:not(:last-child) {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body > div:first-child {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    body > div:nth-child(2) {
+        margin-left: 0;
+        padding: 1rem;
+    }
+
+    nav div {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    nav a {
+        width: calc(50% - 1rem);
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    nav a {
+        width: 100%;
+    }
+}
+
+
+
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background: rgba(168, 85, 247, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-avatar i {
+    font-size: 1.2rem;
+    color: var(--purple-accent);
+}
+
+.user-details {
+    flex: 1;
+}
+
+.user-details h2 {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.user-details span {
+    font-size: 0.875rem;
+}

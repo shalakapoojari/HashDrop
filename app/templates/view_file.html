@@ -1,0 +1,22 @@
+
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/view_file.css') }}">
+    </head>
+    <body>
+   
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Viewing: {{ filename }}</h2>
+    <div class="card">
+        <div class="card-body">
+            <pre class="text-wrap"><code>{{ file_content }}</code></pre>
+        </div>
+    </div>
+    <a href="{{ url_for('user.access_file') }}" class="btn btn-primary mt-3">Back</a>
+</div>
+{% endblock %}
+     
+</body>
+</html>

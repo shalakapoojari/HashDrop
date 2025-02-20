@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure File View</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/secure_view.css') }}">
+    
+   
+</head>
+<body>
+    <div id="secure-container">
+        <div id="header">
+            <button id="back-button" onclick="goBack()">Back</button>
+            <h2 id="filename">{{ filename }}</h2>
+            <div></div>
+        </div>
+        
+        <div id="content">
+            {% if mime_type == 'application/pdf' %}
+                <div class="pdf-container">
+                    <iframe 
+                        class="pdf-viewer"
+                        src="{{ file_data }}"
+                        type="application/pdf"
+                        frameborder="0">
+                    </iframe>
+                </div>
+            {% elif is_text %}
+                <pre class="text-content">{{ file_content }}</pre>
+            {% else %}
+                <img src="{{ file_data }}" class="binary-content" alt="File content">
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+        // Prevent all pointer interactions except scrolling
+// Allow pointer events only on the scrollbar or back button
+document.addEventListener('pointermove', (e) => {
+    const isScrollbar =
+        e.clientX >= document.documentElement.offsetWidth - 17; // Approximate scrollbar width
+    const isBackButton = e.target.id === 'back-button';
+    document.body.style.pointerEvents = isScrollbar || isBackButton ? 'auto' : 'none';
+});
+
+// Prevent all mouse clicks except the back button
+document.addEventListener('mousedown', (e) => {
+    if (e.target.id !== 'back-button') e.preventDefault();
+});
+document.addEventListener('mouseup', (e) => {
+    if (e.target.id !== 'back-button') e.preventDefault();
+});
+
+// Allow mouse wheel scrolling
+document.addEventListener('wheel', (e) => {
+    e.stopPropagation(); // Allow wheel events for scrolling
+}, { passive: false });
+
+// Prevent context menu
+document.addEventListener('contextmenu', (e) => {
+    if (e.target.id !== 'back-button') {
+        e.preventDefault();
+        return false;
+    }
+});
+
+// Disable text selection, drag and drop, and copy-paste
+document.addEventListener('selectstart', (e) => e.preventDefault());
+document.addEventListener('dragstart', (e) => e.preventDefault());
+document.addEventListener('drop', (e) => e.preventDefault());
+document.addEventListener('copy', (e) => e.preventDefault());
+document.addEventListener('paste', (e) => e.preventDefault());
+document.addEventListener('cut', (e) => e.preventDefault());
+
+// Ensure overflow works
+window.onload = function () {
+    document.body.style.overflow = 'auto'; // Ensure scrollbars are operational
+    document.body.style.pointerEvents = 'auto'; // Ensure the scrollbar works
+};
+
+// Keep the back button functional
+document.getElementById('back-button').addEventListener('click', function () {
+    // Your custom back logic here
+    window.history.back();
+});
+
+
+    </script>
+</body>
+</html>

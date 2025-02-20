@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+  
+  <div class="sidebar-header">
+    <div>
+        <H1>ADMIN PANEL</H1>
+        <h2 id="userNameDisplay">Admin Name</h2>
+        <span id="userRoleDisplay" class="text-sm text-gray-300">Admin Role</span>
+    </div>
+</div>
+  <ul id="file-list"></ul>
+
+  <script>
+    fetch('/admin/files')
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          document.body.innerHTML = `<h2>Error: ${data.error}</h2>`;
+        } else {
+          const fileList = document.getElementById('file-list');
+          data.files.forEach((file) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+              ${file.filename} - <button onclick="decryptFile('${file.filehash}')">Decrypt</button>
+              <button onclick="downloadFile('${file.filehash}')">Download</button>
+              <button onclick="deleteFile('${file.filehash}')">Delete</button>
+            `;
+            fileList.appendChild(li);
+          });
+        }
+      })
+      .catch((error) => alert('Error fetching files: ' + error.message));
+
+    function decryptFile(fileHash) {
+      fetch(`/decrypt/${fileHash}`)
+        .then((response) => response.json())
+        .then((data) => alert(data.message || 'File decrypted successfully!'))
+        .catch((error) => alert('Error decrypting file: ' + error.message));
+    }
+
+    function downloadFile(fileHash) {
+      window.location.href = `/download/${fileHash}`;
+    }
+
+    function deleteFile(fileHash) {
+      fetch(`/delete/${fileHash}`, { method: 'DELETE' })
+        .then((response) => response.json())
+        .then((data) => alert(data.message || 'File deleted successfully!'))
+        .catch((error) => alert('Error deleting file: ' + error.message));
+    }
+    function loadUserInfo() {
+        fetch('/admin/user_info')  // Create this backend route
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user info');
+                }
+                return response.json();
+            })
+            .then(user => {
+                document.getElementById('userNameDisplay').innerHTML = user.name;
+                document.getElementById('userRoleDisplay').innerHTML = user.role;
+            })
+            .catch(error => {
+                console.error('Error fetching user info:', error);
+            });
+    }
+
+ 
+    loadUserInfo();
+  </script>
+</body>
+</html>

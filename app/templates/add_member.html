@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Member</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_member.css') }}">
+   
+</head>
+<body>
+    <div class="sidebar-header">
+        <div>
+            
+            <h2 id="userNameDisplay">Admin Name</h2>
+            <span id="userRoleDisplay" class="text-sm text-gray-300">Admin Role</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="{{ url_for('admin.admin_dashboard')}}" class="active">File Permissions</a></li>
+            <li><a href="{{ url_for('admin.my_stored_files')}}">My Files</a></li>
+            <li><a href="{{ url_for('admin.user_stored_files')}}">User Files</a></li>
+            <li><a href="{{ url_for('admin.upload_file')}}">Upload Files</a></li>
+            <li><a href="{{ url_for('admin.organization_members')}}">Manage Organization</a></li>
+            <li><a href="{{ url_for('admin.activity_log')}}">Activities</a></li>
+            <li><a href="{{ url_for('admin.create_user')}}">Create User</a></li>
+            <li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
+        </ul>
+    </div>
+        
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="form-card">
+                <h1>Add New Member</h1>
+                <form method="POST" action="{{ url_for('admin.create_user') }}">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                        <small>Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters.</small>
+                    </div>
+
+                    <div class="form-footer">
+                        <button type="submit" class="btn btn-primary">Create Member</button>
+                        <a href="{{ url_for('admin.create_user') }}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function loadUserInfo() {
+        fetch('/admin/user_info')  // Create this backend route
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user info');
+                }
+                return response.json();
+            })
+            .then(user => {
+                document.getElementById('userNameDisplay').innerHTML = user.name;
+                document.getElementById('userRoleDisplay').innerHTML = user.role;
+            })
+            .catch(error => {
+                console.error('Error fetching user info:', error);
+            });
+    }
+
+ 
+    loadUserInfo();
+    </script>
+</body>
+</html>

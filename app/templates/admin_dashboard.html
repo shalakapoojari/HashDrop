@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_dashboard.css') }}">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div>
+                
+                <h2 id="userNameDisplay"></h2>
+                <span id="userRoleDisplay" class="text-sm text-gray-300"></span>
+            </div>
+            <ul class="sidebar-menu">
+                
+                <li><a href="{{ url_for('admin.admin_dashboard')}}" class="active">File Permissions</a></li>
+                <li><a href="{{ url_for('admin.my_stored_files')}}">My Files</a></li>
+                <li><a href="{{ url_for('admin.user_stored_files')}}">User Files</a></li>
+                <li><a href="{{ url_for('admin.upload_file')}}">Upload Files</a></li>
+                <li><a href="{{ url_for('admin.organization_members')}}">Manage Organization</a></li>
+                <li><a href="{{ url_for('admin.activity_log')}}">Activities</a></li>
+                <li><a href="{{ url_for('admin.create_user')}}">Create User</a></li>
+                <li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
+            </ul>
+        </div>
+       
+    </div>
+
+    <div class="main-content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} mt-3" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endwith %}
+        <div class="container">
+            <h1>Admin Dashboard</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Requested By</th>
+                        <th>Permission Type</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in requests %}
+                    <tr>
+                        <td>{{ request.file_name }}</td>
+                        <td>{{ request.requested_by }}</td>
+                        <td>{{ request.permission_type }}</td>
+                        <td>{{ request.status }}</td>
+                        <td>
+                            <form action="{{ url_for('admin.admin_approve_request', request_id=request['_id']) }}" method="POST">
+                                <button type="submit" class="btn btn-success" id="btn-success">Approve</button>
+                            </form>
+                            <form action="{{ url_for('admin.admin_deny_request', request_id=request['_id']) }}" method="POST">
+                                <button type="submit" class="btn btn-danger" id="btn-deny">Deny</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+    // Add this to your existing JavaScript
+    function loadUserInfo() {
+    fetch('/admin/user_info')
+        .then(response => response.ok ? response.json() : Promise.reject('Failed to fetch'))
+        .then(user => {
+            document.getElementById('userNameDisplay').textContent = user.name;
+            document.getElementById('userRoleDisplay').textContent = user.role;
+        })
+        .catch(console.error);
+}
+
+document.addEventListener('DOMContentLoaded', loadUserInfo);
+
+    // Call this function when page loads
+   
+</script>
+</html>
