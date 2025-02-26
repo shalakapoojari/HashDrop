@@ -25,7 +25,7 @@ config
 flask_mail
 secrets
 docx2pdf
-mimetypes
+
 subprocess
 pytz==2024.2
 werkzeug==3.1.3
