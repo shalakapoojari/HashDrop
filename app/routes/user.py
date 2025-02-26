@@ -22,7 +22,7 @@ from datetime import datetime
 from zoneinfo import ZoneInfo  # If using zoneinfo for time zones
 from cryptography.fernet import Fernet
 from app.utils.helpers import *
-from utils.encryption import *
+from app.utils.encryption import *
 import img2pdf
 from pygments import highlight
 from pygments.lexers import PythonLexer, JsonLexer, HtmlLexer
