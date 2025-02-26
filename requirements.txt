@@ -79,7 +79,6 @@ typing_extensions==4.12.2
 urllib3==2.3.0
 wrapt==1.17.2
 zope.interface==7.2
-=======
 # Flask and essential extensions
 Flask==3.1.0
 Flask-PyMongo==3.0.1
@@ -118,7 +117,7 @@ python-docx==1.1.2
 docx2pdf==0.1.8
 
 # Utility & Date Handling
-datetime  # (Part of Python's stdlib, so no need to install)
+datetime  
 pytz==2024.2
 zoneinfo==0.2.1
 
@@ -139,4 +138,3 @@ MarkupSafe==3.0.2
 certifi==2024.12.14
 idna==3.10
 colorama==0.4.6
->>>>>>> 885fe785f67887f08108863ed99015e9df66bb54
