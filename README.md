@@ -48,14 +48,14 @@ python app.py
 
 ## 📸 Previews
 
-### 🔑 Login Page
-![Login Page](https://raw.githubusercontent.com/your-username/hashdrop/main/images/hero.png)
+### 🔑 Hero Page
+![Login Page](https://github.com/shalakapoojari/HashDrop/blob/main/preview/hero.png)
 
-### 🏠 Dashboard
-![Dashboard](https://raw.githubusercontent.com/your-username/hashdrop/main/images/dashboard.png)
+### 🏠 Admin (RBAC)
+![Dashboard](https://github.com/shalakapoojari/HashDrop/blob/main/preview/admindashboard.png)
 
 ### 📂 File Upload Demo
-![File Upload](https://raw.githubusercontent.com/your-username/hashdrop/main/images/file-upload.gif)
+![File Upload](https://github.com/shalakapoojari/HashDrop/blob/main/preview/userdashboard.png)
 
 ## 🚀 Deployment
 ```sh
