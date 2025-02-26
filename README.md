@@ -46,9 +46,21 @@ echo "SECRET_KEY=your_secret_key" >> .env
 python app.py
 ```
 
+## 📸 Previews
+
+### 🔑 Login Page
+![Login Page](https://raw.githubusercontent.com/your-username/hashdrop/main/images/hero.png)
+
+### 🏠 Dashboard
+![Dashboard](https://raw.githubusercontent.com/your-username/hashdrop/main/images/dashboard.png)
+
+### 📂 File Upload Demo
+![File Upload](https://raw.githubusercontent.com/your-username/hashdrop/main/images/file-upload.gif)
+
 ## 🚀 Deployment
 ```sh
 # Deploy using Gunicorn
 gunicorn -b 0.0.0.0:$PORT wsgi:app
 ```
+
 
