@@ -9,7 +9,8 @@ mail = Mail()
 
 def create_app():
     # Create the Flask app instance
-    app = Flask(__name__)
+   
+    app = Flask(__name__, static_folder='static', template_folder='templates')
 
     # Load configurations
     app.config.from_object(Config)
