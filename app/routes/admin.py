@@ -14,7 +14,7 @@ from app.utils.constants import *
 from app.utils.helpers import *
 from bson import ObjectId
 from datetime import datetime
-import config
+from config import Config
 from bson import ObjectId
 from flask import current_app
 
