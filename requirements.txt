@@ -13,6 +13,7 @@ cryptography==44.0.0
 fernet==1.0.1
 PyJWT==2.10.1
 pyaes==1.6.1
+pygments
 
 # MongoDB dependencies
 pymongo==4.10.1
