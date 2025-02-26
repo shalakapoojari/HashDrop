@@ -205,7 +205,13 @@ def upload_file():
         filename = secure_filename(file.filename)
         file_ext = filename.rsplit('.', 1)[-1].lower() if '.' in filename else ""
 
+        # Ensure UPLOAD_FOLDER exists
+        if not os.path.exists(UPLOAD_FOLDER):
+            os.makedirs(UPLOAD_FOLDER)
+
         file_path = os.path.join(UPLOAD_FOLDER, filename)
+        print(f"Saving file to: {file_path}")  # Debugging output
+
         file.save(file_path)
 
         # Convert file if necessary
@@ -254,6 +260,7 @@ def upload_file():
         flash(f"An error occurred: {str(e)}", 'danger')
 
     return redirect(url_for('user.user_dashboard'))
+
 
 
 @bp.route('/stored_files', methods=['GET'])
