@@ -36,59 +36,40 @@
 
     <script>
         function goBack() {
-            window.history.back();
+            window.location.href = "{{ url_for('user.user_dashboard') }}";
         }
-        // Prevent all pointer interactions except scrolling
-// Allow pointer events only on the scrollbar or back button
-document.addEventListener('pointermove', (e) => {
-    const isScrollbar =
-        e.clientX >= document.documentElement.offsetWidth - 17; // Approximate scrollbar width
-    const isBackButton = e.target.id === 'back-button';
-    document.body.style.pointerEvents = isScrollbar || isBackButton ? 'auto' : 'none';
-});
+        history.pushState(null, null, window.location.href);
+    window.addEventListener('popstate', function (event) {
+        history.pushState(null, null, window.location.href);
+    });
 
-// Prevent all mouse clicks except the back button
-document.addEventListener('mousedown', (e) => {
-    if (e.target.id !== 'back-button') e.preventDefault();
-});
-document.addEventListener('mouseup', (e) => {
-    if (e.target.id !== 'back-button') e.preventDefault();
-});
+    // Restrict interactions except for back button & scrollbar
+    document.addEventListener('pointermove', (e) => {
+        const isScrollbar = e.clientX >= document.documentElement.offsetWidth - 17;
+        const isBackButton = e.target.id === 'back-button';
+        document.body.style.pointerEvents = isScrollbar || isBackButton ? 'auto' : 'none';
+    });
 
-// Allow mouse wheel scrolling
-document.addEventListener('wheel', (e) => {
-    e.stopPropagation(); // Allow wheel events for scrolling
-}, { passive: false });
+    document.addEventListener('mousedown', (e) => {
+        if (e.target.id !== 'back-button') e.preventDefault();
+    });
+    document.addEventListener('mouseup', (e) => {
+        if (e.target.id !== 'back-button') e.preventDefault();
+    });
 
-// Prevent context menu
-document.addEventListener('contextmenu', (e) => {
-    if (e.target.id !== 'back-button') {
-        e.preventDefault();
-        return false;
-    }
-});
+    document.addEventListener('contextmenu', (e) => {
+        if (e.target.id !== 'back-button') {
+            e.preventDefault();
+        }
+    });
 
-// Disable text selection, drag and drop, and copy-paste
-document.addEventListener('selectstart', (e) => e.preventDefault());
-document.addEventListener('dragstart', (e) => e.preventDefault());
-document.addEventListener('drop', (e) => e.preventDefault());
-document.addEventListener('copy', (e) => e.preventDefault());
-document.addEventListener('paste', (e) => e.preventDefault());
-document.addEventListener('cut', (e) => e.preventDefault());
+    ["selectstart", "dragstart", "drop", "copy", "paste", "cut"].forEach(event => {
+        document.addEventListener(event, e => e.preventDefault());
+    });
 
-// Ensure overflow works
-window.onload = function () {
-    document.body.style.overflow = 'auto'; // Ensure scrollbars are operational
-    document.body.style.pointerEvents = 'auto'; // Ensure the scrollbar works
-};
-
-// Keep the back button functional
-document.getElementById('back-button').addEventListener('click', function () {
-    // Your custom back logic here
-    window.history.back();
-});
-
-
-    </script>
-</body>
-</html>
+    
+    window.onload = function () {
+        document.body.style.overflow = 'auto';
+        document.body.style.pointerEvents = 'auto';
+    };
+</script>
