@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure File View</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/secure_view.css') }}">
+
 </head>
 <body>
     <div id="secure-container">
@@ -13,7 +14,7 @@
             <h2 id="filename">{{ filename }}</h2>
             <div></div>
         </div>
-        
+
         <div id="content">
             {% if mime_type == 'application/pdf' %}
                 <div class="pdf-container">
@@ -21,8 +22,7 @@
                         class="pdf-viewer"
                         src="{{ file_data }}"
                         type="application/pdf"
-                        frameborder="0"
-                        sandbox="allow-scripts allow-same-origin">
+                        frameborder="0">
                     </iframe>
                 </div>
             {% elif is_text %}
@@ -36,55 +36,33 @@
         function goBack() {
             window.location.href = "{{ url_for('user.user_dashboard') }}";
         }
-
-        // Prevent back button navigation
         history.pushState(null, null, window.location.href);
-        window.addEventListener('popstate', function (event) {
-            history.pushState(null, null, window.location.href);
-            // Show a brief message
-            const msg = document.createElement('div');
-            msg.textContent = "Please use the back button above";
-            msg.style = "position:fixed;top:10px;left:50%;transform:translateX(-50%);background:#ffcccc;padding:10px;border-radius:5px;z-index:1000";
-            document.body.appendChild(msg);
-            setTimeout(() => document.body.removeChild(msg), 2000);
-        });
+    window.addEventListener('popstate', function (event) {
+        history.pushState(null, null, window.location.href);
+    });
+    // Restrict interactions except for back button & scrollbar
+    document.addEventListener('pointermove', (e) => {
+        const isScrollbar = e.clientX >= document.documentElement.offsetWidth - 17;
+        const isBackButton = e.target.id === 'back-button';
+        document.body.style.pointerEvents = isScrollbar || isBackButton ? 'auto' : 'none';
+    });
+    document.addEventListener('mousedown', (e) => {
+        if (e.target.id !== 'back-button') e.preventDefault();
+    });
+    document.addEventListener('mouseup', (e) => {
+        if (e.target.id !== 'back-button') e.preventDefault();
+    });
+    document.addEventListener('contextmenu', (e) => {
+        if (e.target.id !== 'back-button') {
+            e.preventDefault();
+        }
+    });
+    ["selectstart", "dragstart", "drop", "copy", "paste", "cut"].forEach(event => {
+        document.addEventListener(event, e => e.preventDefault());
+    });
 
-        // Improved scrolling and interaction handling
-        document.addEventListener('pointermove', (e) => {
-            const isScrollbar = e.clientX >= document.documentElement.offsetWidth - 17;
-            const isBackButton = e.target.id === 'back-button';
-            document.body.style.pointerEvents = isScrollbar || isBackButton ? 'auto' : 'none';
-        });
-
-        // Allow mousedown/mouseup on scrollbar and back button
-        document.addEventListener('mousedown', (e) => {
-            const isScrollbar = e.clientX >= document.documentElement.offsetWidth - 17;
-            const isBackButton = e.target.id === 'back-button';
-            if (!isScrollbar && !isBackButton) e.preventDefault();
-        });
-
-        document.addEventListener('mouseup', (e) => {
-            const isScrollbar = e.clientX >= document.documentElement.offsetWidth - 17;
-            const isBackButton = e.target.id === 'back-button';
-            if (!isScrollbar && !isBackButton) e.preventDefault();
-        });
-
-        // Prevent context menu except on back button
-        document.addEventListener('contextmenu', (e) => {
-            if (e.target.id !== 'back-button') {
-                e.preventDefault();
-            }
-        });
-
-        // Prevent other interactions
-        ["selectstart", "dragstart", "drop", "copy", "paste", "cut"].forEach(event => {
-            document.addEventListener(event, e => e.preventDefault());
-        });
-        
-        window.onload = function () {
-            document.body.style.overflow = 'auto';
-            document.body.style.pointerEvents = 'auto';
-        };
-    </script>
-</body>
-</html>
+    window.onload = function () {
+        document.body.style.overflow = 'auto';
+        document.body.style.pointerEvents = 'auto';
+    };
+</script>
