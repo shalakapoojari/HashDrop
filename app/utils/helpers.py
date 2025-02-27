@@ -41,7 +41,7 @@ def convert_file(file_path, file_ext):
         pdf_filename = filename.rsplit('.', 1)[0] + ".pdf"
         pdf_path = os.path.join(PDF_FOLDER, pdf_filename)
         try:
-            convert(file_path, PDF_FOLDER)
+            convert_docx_to_pdf(file_path, pdf_path)
             return pdf_path
         except Exception as e:
             print(f"Error converting DOCX to PDF: {e}")
@@ -71,7 +71,7 @@ def convert_file(file_path, file_ext):
             print(f"Error converting {file_ext} to HTML: {e}")
             return None
 
-    return None  # No conversion needed
+    return None 
 
 
 ALLOWED_MIME_TYPES = {
