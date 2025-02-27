@@ -8,6 +8,275 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Add Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+:root {
+    --purple-accent: #A855F7;
+    --text-light: #ffffff;
+    --text-muted: #CBD5E1;
+    --gradient-start: #000000;
+    --gradient-mid-1: rgb(41, 30, 139);
+    --gradient-mid-2: #6B21A8;
+    --gradient-end: rgb(175, 20, 46);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+    color: var(--text-light);
+    background: linear-gradient(45deg, 
+        var(--gradient-start), 
+        var(--gradient-mid-1), 
+        var(--gradient-start), 
+        var(--gradient-mid-2), 
+        var(--gradient-start), 
+        var(--gradient-end), 
+        var(--gradient-start)
+    );
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
+    display: flex;
+    min-height: 100vh;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.sidebar {
+    width: 250px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.sidebar-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--purple-accent);
+}
+
+.sidebar-header h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.sidebar-menu {
+    list-style: none;
+    margin-top: 2rem;
+    text-align: left;  /* Changed to left alignment */
+}
+
+.sidebar-menu li {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-menu a {
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    display: block;
+    transition: all 0.3s ease;
+    text-align: left;  /* Changed to left alignment */
+}
+
+.sidebar-menu a:hover, .sidebar-menu a.active {
+    color: var(--purple-accent);
+    background: rgba(168, 85, 247, 0.1);
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.main-content h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+/* File Upload Section */
+.mt-8 {
+    margin-top: 2rem;
+}
+
+#dropArea {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#dropArea:hover {
+    background-color: rgba(168, 85, 247, 0.1);
+}
+
+#fileInput {
+    display: none;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 1rem 0;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--purple-accent);
+    color: var(--text-light);
+    border-radius: 5px;
+}
+
+.btn {
+    margin: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: rgba(74, 222, 128, 0.2);
+    color: #4ADE80;
+    border: 1px solid #4ADE80;
+}
+
+.btn-danger {
+    background: rgba(248, 113, 113, 0.2);
+    color: #F87171;
+    border: 1px solid #F87171;
+}
+
+/* File Viewer */
+#fileViewer {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 800px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+.viewer-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: rgba(168, 85, 247, 0.2);
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+.viewer-content {
+    padding: 1rem;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+}
+
+/* Upload Result Styling */
+#uploadResult {
+    margin-top: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+#uploadResult .file-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#uploadResult button {
+    margin-top: 1rem;
+    background: var(--purple-accent);
+    color: var(--text-light);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#uploadResult button:hover {
+    background: rgba(168, 85, 247, 0.8);
+}
+.sidebar-menu a.active {
+    color: var(--purple-accent);
+    background: rgba(168, 85, 247, 0.1);
+}
+.sidebar-menu a:hover, .sidebar-menu a.active {
+    color: var(--purple-accent);
+    background: rgba(168, 85, 247, 0.1);
+}
+    </style>
 </head>
 
 <body>
