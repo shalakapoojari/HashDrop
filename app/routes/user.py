@@ -215,14 +215,8 @@ def upload_file():
 
         file.save(file_path)
 
-        # Convert .docx to .pdf if needed
-        converted_path = None
-        if file_ext == 'docx':
-            converted_path = os.path.join(UPLOAD_FOLDER, filename.rsplit('.', 1)[0] + '.pdf')
-            convert_docx_to_pdf(file_path, converted_path)
-        else:
-            converted_path = convert_file(file_path, file_ext)
-
+        # Convert file if needed
+        converted_path = convert_file(file_path, file_ext)
         file_to_encrypt = converted_path if converted_path else file_path
 
         # Encrypt the file
@@ -267,23 +261,6 @@ def upload_file():
         flash(f"An error occurred: {str(e)}", 'danger')
 
     return redirect(url_for('user.user_dashboard'))
-
-def convert_docx_to_pdf(docx_path, pdf_path):
-    try:
-        import pdfkit
-        from docx import Document
-
-        # Read the DOCX file and extract text
-        doc = Document(docx_path)
-        html_content = "".join([f"<p>{p.text}</p>" for p in doc.paragraphs])
-        
-        # Convert to PDF
-        pdfkit.from_string(html_content, pdf_path)
-        print(f"Converted {docx_path} to {pdf_path}")
-    except Exception as e:
-        print(f"Error converting DOCX to PDF: {e}")
-
-
 
 @bp.route('/stored_files', methods=['GET'])
 def stored_files():
