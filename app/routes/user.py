@@ -1,6 +1,8 @@
 from base64 import urlsafe_b64encode
 import base64
 from docx2pdf import convert
+from docx import Document
+import pdfkit
 import hashlib
 import io
 import json
@@ -92,7 +94,50 @@ def user_dashboard():
 
     return render_template('user_dashboard.html', files=user_files)
 
+def convert_file(file_path, file_ext):
+    """
+    Converts the uploaded file based on its extension.
+    DOCX → PDF
+    PY, JSON, HTML, TXT → HTML
+    Returns the path to the converted file or None if no conversion was needed.
+    """
+    filename = os.path.basename(file_path)
+    
+    if file_ext == "docx":
+        pdf_filename = filename.rsplit('.', 1)[0] + ".pdf"
+        pdf_path = os.path.join(PDF_FOLDER, pdf_filename)
+        try:
+            convert_docx_to_pdf(file_path, pdf_path)
+            return pdf_path
+        except Exception as e:
+            print(f"Error converting DOCX to PDF: {e}")
+            return None
 
+    elif file_ext in {"py", "json", "html", "txt"}:
+        html_filename = filename.rsplit('.', 1)[0] + ".html"
+        html_path = os.path.join(HTML_FOLDER, html_filename)
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                file_content = f.read()
+
+            if file_ext == "py":
+                highlighted_code = highlight(file_content, PythonLexer(), HtmlFormatter(full=True))
+            elif file_ext == "json":
+                highlighted_code = highlight(file_content, JsonLexer(), HtmlFormatter(full=True))
+            elif file_ext == "html":
+                highlighted_code = highlight(file_content, HtmlLexer(), HtmlFormatter(full=True))
+            else:  # Plain text
+                highlighted_code = f"<pre>{file_content}</pre>"
+
+            with open(html_path, "w", encoding="utf-8") as f:
+                f.write(highlighted_code)
+
+            return html_path
+        except Exception as e:
+            print(f"Error converting {file_ext} to HTML: {e}")
+            return None
+
+    return None
 @bp.route('/request_permission/<file_id>', methods=['POST'])
 def request_permission(file_id):
     """
