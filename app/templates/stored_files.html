@@ -228,16 +228,20 @@
                                 <td class="table-cell">{{ file.filename }}</td>
                                 <td class="table-cell">{{ file.uploaded_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
                                 
-                                  <td class="table-cell">
-                                    <form method="POST" action="{{ url_for('user.request_permission', file_id=file._id) }}">
-                                      <select name="permission_type" class="select">
-                                          <option value="view">View</option>
-                                          <option value="download">Download</option>
-                                          <option value="delete">Delete</option>
-                                      </select>
-                                      <button type="submit" class="button">Request</button>
-                                  </form>
-                                  </td>
+                                 <td class="table-cell">
+    <form method="POST" action="{{ url_for('user.request_permission', file_id=file._id) }}" style="display: inline;">
+        <input type="hidden" name="permission_type" value="view">
+        <button type="submit" class="button">View</button>
+    </form>
+    <form method="POST" action="{{ url_for('user.request_permission', file_id=file._id) }}" style="display: inline;">
+        <input type="hidden" name="permission_type" value="download">
+        <button type="submit" class="button">Download</button>
+    </form>
+    <form method="POST" action="{{ url_for('user.request_permission', file_id=file._id) }}" style="display: inline;">
+        <input type="hidden" name="permission_type" value="delete">
+        <button type="submit" class="button">Delete</button>
+    </form>
+</td>
                                                                    
                                 
                             </tr>
