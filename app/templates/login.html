@@ -30,33 +30,6 @@
             padding: 0;
         }
 
-        /* Background shapes with smoother animation */
-        body::before, body::after {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            border-radius: 50%;
-            filter: blur(180px);
-            opacity: 0.7;
-            z-index: -1;
-            transition: all 5s ease;
-        }
-
-        body::before {
-            background: rgba(121, 82, 179, 0.6);
-            top: -250px;
-            right: -150px;
-            animation: float1 25s infinite alternate;
-        }
-
-        body::after {
-            background: rgba(232, 62, 140, 0.6);
-            bottom: -250px;
-            left: -150px;
-            animation: float2 20s infinite alternate;
-        }
-
         .container {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(15px);
@@ -65,14 +38,7 @@
             padding: 3rem;
             max-width: 450px;
             width: 90%;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            transform: perspective(1000px) rotateX(-10deg);
-            transition: all 0.5s ease;
-        }
-
-        .container:hover {
-            transform: perspective(1000px) rotateX(0);
-            box-shadow: 0 20px 45px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
         h2 {
@@ -96,7 +62,6 @@
             font-size: 0.9rem;
             font-weight: 500;
             margin-bottom: 0.5rem;
-            transition: color 0.3s;
         }
 
         .form-control {
@@ -105,7 +70,6 @@
             color: var(--text-light);
             border-radius: 12px;
             padding: 0.75rem;
-            transition: all 0.3s ease;
             font-size: 0.95rem;
         }
 
@@ -122,7 +86,6 @@
             border-radius: 12px;
             padding: 0.9rem 2rem;
             font-weight: 600;
-            transition: all 0.3s ease;
             width: 100%;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -130,8 +93,6 @@
 
         .btn-primary:hover {
             background: var(--purple-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(121, 82, 179, 0.4);
         }
 
         .additional-links {
@@ -142,8 +103,6 @@
         a {
             color: var(--purple-accent);
             text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
         }
 
         a:hover {
@@ -151,21 +110,10 @@
             text-decoration: underline;
         }
 
-        @keyframes float1 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(-120px, 120px) rotate(45deg); }
-        }
-
-        @keyframes float2 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(120px, -120px) rotate(-45deg); }
-        }
-
         @media (max-width: 480px) {
             .container {
                 padding: 2rem;
                 width: 95%;
-                transform: none;
             }
 
             h2 {
