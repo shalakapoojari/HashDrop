@@ -214,40 +214,32 @@
 
                 <!-- Files List -->
                 {% if files %}
-                <div class="table-container">
-                    <table>
-                        <thead>
+                 <table class="table-container">
+                        <thead class="table-header">
                             <tr>
-                                <th>File Name</th>
-                                <th>Uploaded At</th>
-                                
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th class="table-cell">File Name</th>
+                                <th class="table-cell">Uploaded At</th>
+                                <th class="table-cell">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for file in files %}
                             <tr>
-                                <td>
-                                    <div class="file-cell">
-                                        <span class="file-icon"></span>
-                                        {{ file.filename }}
-                                    </div>
-                                </td>
-                                <td>
-                                    {{ file.uploaded_at.strftime('%Y-%m-%d %H:%M:%S') }}
-                                </td>
-                                <td>
-                                    {{ (file.size / 1024)|round|int if file.size else 0 }} KB
-                                </td>
-                                <td>
-                                    <span class="status-badge {{ file.status|default('active')|lower }}">
-                                        {{ file.status|default('active')|title }}
-                                    </span>
-                                </td>
-                                <td>
-                                    
-                                </td>
+                                <td class="table-cell">{{ file.filename }}</td>
+                                <td class="table-cell">{{ file.uploaded_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                                
+                                  <td class="table-cell">
+                                    <form method="POST" action="{{ url_for('user.request_permission', file_id=file._id) }}">
+                                      <select name="permission_type" class="select">
+                                          <option value="view">View</option>
+                                          <option value="download">Download</option>
+                                          <option value="delete">Delete</option>
+                                      </select>
+                                      <button type="submit" class="button">Request</button>
+                                  </form>
+                                  </td>
+                                                                   
+                                
                             </tr>
                             {% endfor %}
                         </tbody>
