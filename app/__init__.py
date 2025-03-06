@@ -31,5 +31,9 @@ def create_app():
     app.register_blueprint(user_bp, url_prefix='/user')
     app.register_blueprint(main_bp,url_prefix='/')
     app.register_blueprint(file_management_bp,url_prefix='/')
-
+    
+    @app.route('/<path:path>')
+    def catch_all(path):
+        return render_template('404.html'), 404
+    
     return app
