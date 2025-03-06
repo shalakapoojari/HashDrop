@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | HashDrop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@latest/build/spline-viewer.js"></script>
+    <!-- Include your existing CSS here -->
+    <style>
+        /* Add any additional styles for your 404 page */
+        .error-container {
+            text-align: center;
+            padding: 4rem 2rem;
+            max-width: 36rem;
+            margin: 0 auto;
+        }
+        
+        .error-code {
+            font-size: 8rem;
+            font-weight: bold;
+            color: var(--purple-accent);
+            line-height: 1;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #ff78f280 0%, #6f8bff90 40%, #f7629b80 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 400% 400%; 
+            animation: gradientMove 10s ease infinite;
+        }
+        
+        .error-message {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .error-description {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Add Spline background -->
+        <spline-viewer url="https://prod.spline.design/VpVWoO6JvK98jiHM/scene.splinecode"></spline-viewer>
+        
+        <div class="gradient-overlay"></div>
+        
+        <nav class="navbar">
+            <div class="navbar-content">
+                <div class="logo">
+                    <i class="icon-lock"></i>
+                    <span>HashDrop</span>
+                </div>
+                <div class="nav-links">
+                    <a href="{{ url_for('auth.login') }}" class="basic-button">User Login✦₊⁺</a>
+                    <a href="{{ url_for('auth.register') }}" class="basic-button">Register as Admin</a>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <div class="error-container">
+                <div class="error-code">404</div>
+                <h1 class="error-message">Page Not Found</h1>
+                <p class="error-description">The page you're looking for doesn't exist or has been moved.</p>
+                <a href="{{ url_for('index') }}" class="basic-button">Return Home</a>
+            </div>
+        </main>
+
+        <footer>
+            <p>HashDrop © 2024. Secure file hashing made simple.</p>
+        </footer>
+    </div>
+
+    <!-- Scripts at end of body -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        // Simple script to ensure the icons are loaded properly
+        document.addEventListener('DOMContentLoaded', function() {
+            const icons = ['lock', 'shield', 'file'];
+            icons.forEach(icon => {
+                const elements = document.querySelectorAll(`.icon-${icon}`);
+                elements.forEach(el => {
+                    el.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-${icon}"><path d="${getIconPath(icon)}"/></svg>`;
+                });
+            });
+
+            function getIconPath(icon) {
+                switch(icon) {
+                    case 'lock':
+                        return "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a3 3 0 016 0v2m-6 0h6";
+                    case 'shield':
+                        return "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z";
+                    case 'file':
+                        return "M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8";
+                    default:
+                        return "";
+                }
+            }
+        });
+    </script>
+</body>
+</html>
