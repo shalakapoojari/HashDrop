@@ -2,7 +2,7 @@
 
 **HashDrop** is a high-security file-sharing platform where users can upload files in a hashed format. Admins control access, and OTP verification ensures secure downloads.
 
-> **Note:** This is a group project developed by **Rucha, Shalaka (lead), Rachel, and Sanjana**. The platform is **not yet fully responsive on mobile**.
+> **Note:** This is a group project developed by **Shalaka, Rachel, Sanjana and Rucha**. The platform is **not yet fully responsive on mobile**.
 
 ## 🚀 Features
 - **Secure File Uploads** - Files are stored in hashed form.
