@@ -167,7 +167,7 @@ def create_user():
 
 #required to fetch activities into tables
 from flask import jsonify
-@bp.route('/admin/delete_user/<user_id>', methods=['POST'])
+@bp.route('/delete_user/<user_id>', methods=['POST'])
 def delete_user(user_id):
     if not session.get('is_admin'):
         flash('Unauthorized access!', 'danger')
