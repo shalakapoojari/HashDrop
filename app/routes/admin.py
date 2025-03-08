@@ -167,7 +167,21 @@ def create_user():
 
 #required to fetch activities into tables
 from flask import jsonify
-
+@bp.route('/admin/delete_user/<user_id>', methods=['POST'])
+def delete_user(user_id):
+    if not session.get('is_admin'):
+        flash('Unauthorized access!', 'danger')
+        return redirect(url_for('admin_dashboard'))
+    
+    user = db.users.find_one({"_id": ObjectId(user_id)})
+    if user:
+        db.users.delete_one({"_id": ObjectId(user_id)})
+        flash('User deleted successfully!', 'success')
+    else:
+        flash('User not found!', 'danger')
+    
+    return redirect(url_for('admin_dashboard'))
+    
 @bp.route('/api/activities', methods=['GET'])
 def get_activities_data():
     try:
