@@ -16,13 +16,13 @@
 
         <div id="content">
             {% if mime_type == 'application/pdf' %}
-                <div class="pdf-container">
-                    <iframe 
-                        class="pdf-viewer"
-                        src="{{ file_data }}"
-                        type="application/pdf"
-                        frameborder="0">
-                    </iframe>
+    <div class="pdf-container">
+        <iframe 
+            class="pdf-viewer"
+            src="{{ file_data }}#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&view=FitH"
+            type="application/pdf"
+            frameborder="0">
+        </iframe>
                 </div>
             {% elif is_text %}
                 <pre class="text-content">{{ file_content }}</pre>
