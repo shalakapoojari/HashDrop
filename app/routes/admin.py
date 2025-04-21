@@ -171,7 +171,7 @@ from flask import jsonify
 def delete_user(user_id):
     if not session.get('is_admin'):
         flash('Unauthorized access!', 'danger')
-        return redirect(url_for('admin_dashboard'))
+        return redirect(url_for('admin.admin_dashboard'))
     
     user = db.users.find_one({"_id": ObjectId(user_id)})
     if user:
