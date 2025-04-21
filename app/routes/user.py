@@ -230,7 +230,7 @@ def request_permission(file_id):
 
     return redirect(url_for('user.user_dashboard'))
 
-@bp.route('/access_file_page', methods=['GET'])
+@bp.route('/access-file_page', methods=['GET'])
 def access_file_page():
     return render_template('access_file.html')
 
