@@ -171,9 +171,9 @@ from flask import jsonify
 def delete_user(user_id):
     
     
-    user = db.users.find_one({"_id": ObjectId(user_id)})
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
     if user:
-        db.users.delete_one({"_id": ObjectId(user_id)})
+        mongo.db.users.delete_one({"_id": ObjectId(user_id)})
         flash('User deleted successfully!', 'success')
     else:
         flash('User not found!', 'danger')
