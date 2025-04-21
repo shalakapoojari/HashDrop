@@ -178,7 +178,7 @@ def delete_user(user_id):
     else:
         flash('User not found!', 'danger')
     
-    return redirect(url_for('admin_dashboard'))
+    return redirect(url_for('admin.admin_dashboard'))
     
 @bp.route('/api/activities', methods=['GET'])
 def get_activities_data():
